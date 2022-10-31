@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Travel Itinerary System</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="http://fonts.cdnfonts.com/css/product-sans" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Product Sans", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        padding: 0 9em;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        background-color: #fff;
+        width: 100%;
+      }
+
+      .imagecontainer {
+        position: relative;
+        text-align: center;
+        /* color: white; */
+      }
+
+      .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: black;
+      }
+
+      .headertext {
+        font-size: 3em;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+      }
+
+      .backimg {
+        width: 100%;
+        height: 35em;
+        border-radius: 1.5em;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .darken {
+        background-color: linear-gradient(
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.5)
+        );
+      }
+
+      .header {
+        /* background-color: rgb(126, 31, 31); */
+        width: 100%;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        top: 0;
+      }
+
+      /* CSS */
+      .button-27 {
+        appearance: none;
+        background-color: #000000;
+        border: 2px solid #1a1a1a;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        line-height: normal;
+        margin: 0;
+        /* min-height: 50px; */
+        min-width: 0;
+        outline: none;
+        padding: 13px 23px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: auto;
+        will-change: transform;
+      }
+
+      .button-27:disabled {
+        pointer-events: none;
+      }
+
+      .button-27:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        transform: translateY(-2px);
+      }
+
+      .button-27:active {
+        box-shadow: none;
+        transform: translateY(0);
+      }
+
+      /* CSS */
+      .button-23 {
+        background-color: #ffffff;
+        border: 1px solid #222222;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #222222;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        margin: 0;
+        outline: none;
+        padding: 13px 23px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        touch-action: manipulation;
+        transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+          transform 0.1s;
+        user-select: none;
+        -webkit-user-select: none;
+        width: auto;
+      }
+
+      .button-23:focus-visible {
+        box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+        transition: box-shadow 0.2s;
+      }
+
+      .button-23:active {
+        background-color: #f7f7f7;
+        border-color: #000000;
+        transform: scale(0.96);
+      }
+
+      .button-23:disabled {
+        border-color: #dddddd;
+        color: #dddddd;
+        cursor: not-allowed;
+        opacity: 1;
+      }
+
+      .button-27 {
+        appearance: none;
+        background-color: #000000;
+        border: 2px solid #1a1a1a;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        line-height: normal;
+        margin: 0;
+        min-width: 0;
+        outline: none;
+        padding: 13px 23px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        width: auto;
+        will-change: transform;
+      }
+
+      .button-27:disabled {
+        pointer-events: none;
+      }
+
+      .button-27:hover {
+        box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        transform: translateY(-2px);
+      }
+
+      .button-27:active {
+        box-shadow: none;
+        transform: translateY(0);
+      }
+
+      .formContainer {
+        margin: 2em 0;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 2em;
+        margin-top: 0.3em;
+        /* margin: 0 -15px; */
+      }
+
+      .selectDiv {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        margin: 1em 0;
+      }
+
+      .labelStyle {
+        position: relative;
+        display: inline-block;
+      }
+
+      .labelStyle:before {
+        content: "";
+        height: 31px;
+        position: absolute;
+        right: 7px;
+        top: 3px;
+        width: 22px;
+
+        background: #fff;
+
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        pointer-events: none;
+        display: block;
+      }
+
+      .labelStyle:after {
+        content: " ";
+        position: absolute;
+        right: 15px;
+        top: 46%;
+        margin-top: -3px;
+        z-index: 2;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6.9px 4px 0 4px;
+        border-color: #aaa transparent transparent transparent;
+        pointer-events: none;
+      }
+
+      select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        /* padding: 0 30px 0 10px; */
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        line-height: 36px;
+        /* height: 36px; */
+        padding: 0.5em 1.5em;
+        width: 15em;
+        font-size: 1rem;
+        /* background: #fff; */
+        /* margin: 0 5px 5px 0; */
+      }
+
+      /* //fix for ie 10 later */
+      select::-ms-expand {
+        display: none;
+      }
+
+      .inputStyle {
+        appearance: none;
+        box-sizing: border-box;
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        line-height: 2.25em;
+        font-size: 1rem;
+        padding: 0.5em 1.5em;
+      }
+
+      .dateStyle {
+        appearance: none;
+        box-sizing: border-box;
+        border: 1px solid #e0e0e0;
+        border-radius: 3px;
+        line-height: 2.25em;
+        font-size: 1rem;
+        padding: 0.5em 1.5em;
+        /* color-scheme: dark; */
+        /* width: 100%; */
+      }
+
+      .dateStyle::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+      }
+
+      .formButtons {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+
+      .actionBtns {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+
+      /* .dateStyle::-webkit-datetime-edit-text {
+     padding: 0 0.2rem;
+} */
+    </style>
+    <script>
+      // validate date1, date2 and date3 from form to not be equal
+      function validateForm() {
+        // dates must be different
+        var date1 = document.forms["dform"]["date1"].value;
+        var date2 = document.forms["dform"]["date2"].value;
+        var date3 = document.forms["dform"]["date3"].value;
+        if (date1 == date2 || date1 == date3 || date2 == date3) {
+          alert("Dates must be different for different places!");
+          return false;
+        }
+        // convert date1, date2, date3 to date format
+        var d1 = new Date(date1);
+        var d2 = new Date(date2);
+        var d3 = new Date(date3);
+        // // validate date1, date2, date3 to be in future
+        // if (d1 < new Date() || d2 < new Date() || d3 < new Date()) {
+        //   alert("Dates must be in future!");
+        //   return false;
+        // }
+
+        // check whether the place1, place2, place3 are different
+        var place1 = document.forms["dform"]["p1"].value;
+        var place2 = document.forms["dform"]["p2"].value;
+        var place3 = document.forms["dform"]["p3"].value;
+        if (place1 == place2 || place1 == place3 || place2 == place3) {
+          alert("Places must be different!");
+          return false;
+        }
+
+        // extract days1, days2, days3 from form
+        var days1 = document.forms["dform"]["days1"].value;
+        var days2 = document.forms["dform"]["days2"].value;
+        var days3 = document.forms["dform"]["days3"].value;
+        // create a map of dates and days
+        var map = new Map();
+        map.set(d1, Number(days1));
+        map.set(d2, Number(days2));
+        map.set(d3, Number(days3));
+        var i = 0;
+        // sort the map by date
+        var sortedMap = new Map([...map.entries()].sort());
+        // find difference between consecutive keys as dates
+        for (let [key, value] of sortedMap) {
+          if (i == 0) {
+            var prevKey = key;
+            i++;
+          } else if (i == 3) {
+            break;
+          } else {
+            var diff = Math.abs(key - prevKey);
+            var days = diff / (1000 * 60 * 60 * 24);
+            console.log(days);
+            console.log(value);
+            // check whether the difference is equal to the days
+            if (days < value) {
+              alert("Days must be less than difference between dates!");
+              return false;
+            }
+            prevKey = key;
+            i++;
+          }
+        }
+      }
+
+      // clear username from local storage
+      function logout() {
+        localStorage.removeItem("username");
+        window.location.replace("http://localhost:8080/");
+      }
+      // send POST request to server with username from local storage
+    </script>
+  </head>
+  <body>
+    <!-- FORM -->
+    <div class="header">
+      <h2>Travel Itinerary</h2>
+      <div class="actionBtns">
+        <form action="/profile" method="POST">
+          <input
+            type="text"
+            style="display: none"
+            id="username"
+            name="username"
+          />
+          <button class="button-23" type="submit" role="button">Profile</button>
+        </form>
+        <button class="button-27" role="button" onclick="return logout()">
+          Log out
+        </button>
+      </div>
+    </div>
+    <div class="imagecontainer">
+      <img
+        src="https://user-images.githubusercontent.com/58077762/198885733-d224edad-0fc9-45be-9d0a-b465c134f573.jpg"
+        alt="japan"
+        class="backimg darken"
+      />
+      <div class="centered">
+        <div class="headertext">Create Travel Itinerary</div>
+        <a href="#form" class="button-27" role="button">Start</a>
+      </div>
+    </div>
+    <form
+      action="/itinerary"
+      name="dform"
+      method="post"
+      id="form"
+      onsubmit="return validateForm()"
+    >
+      <div class="formContainer">
+        <h1>Create</h1>
+        <p>
+          To create an itinerary of your own,<br />
+          fill this form!
+        </p>
+        <br />
+        <!-- <hr /> -->
+        <div class="selectDiv">
+          <!-- place 1 -->
+          <div>
+            <label for="p1"><b>Place 1</b></label>
+            <div class="row">
+              <label class="labelStyle">
+                <select name="p1" id="p1">
+                  <option value="surat">Surat</option>
+                  <option value="ahemdabad">Ahmendabad</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="delhi">delhi</option>
+                </select>
+              </label>
+              <!-- date picker -->
+              <input
+                class="dateStyle"
+                type="date"
+                id="date1"
+                name="date1"
+                value="2022-10-25"
+              />
+              <!-- Number of days to stay -->
+              <input
+                class="inputStyle"
+                type="number"
+                id="days1"
+                name="days1"
+                min="1"
+                max="5"
+                value="1"
+              />
+              <!-- select mode of transportation -->
+              <label class="labelStyle">
+                <select name="mode1" id="mode1">
+                  <option value="flight">Flight</option>
+                  <option value="train">Train</option>
+                  <option value="bus">Bus</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <!-- place 2 -->
+          <div>
+            <label for="p2"><b>Place 2</b></label>
+            <div class="row">
+              <label class="labelStyle">
+                <select name="p2" id="p2">
+                  <option value="surat">Surat</option>
+                  <option value="ahemdabad">Ahmendabad</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="delhi">delhi</option>
+                </select>
+              </label>
+              <!-- date picker -->
+              <input
+                class="dateStyle"
+                type="date"
+                id="date2"
+                name="date2"
+                value="2022-10-26"
+              />
+              <!-- Number of days to stay -->
+              <input
+                class="inputStyle"
+                type="number"
+                id="days2"
+                name="days2"
+                min="1"
+                max="5"
+                value="1"
+              />
+              <!-- select mode of transportation -->
+              <label class="labelStyle">
+                <select name="mode2" id="mode2">
+                  <option value="flight">Flight</option>
+                  <option value="train">Train</option>
+                  <option value="bus">Bus</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <!-- place 3 -->
+          <div>
+            <label for="p3"><b>Place 3</b></label>
+            <div class="row">
+              <label class="labelStyle">
+                <select name="p3" id="p3">
+                  <option value="surat">Surat</option>
+                  <option value="ahemdabad">Ahmendabad</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="delhi">delhi</option>
+                </select>
+              </label>
+              <!-- date picker with default date value-->
+              <input
+                class="dateStyle"
+                type="date"
+                id="date3"
+                name="date3"
+                value="2022-10-27"
+              />
+              <!-- Number of days to stay -->
+              <input
+                class="inputStyle"
+                type="number"
+                id="days3"
+                name="days3"
+                min="1"
+                max="5"
+                value="1"
+              />
+              <!-- select mode of transportation -->
+              <label class="labelStyle">
+                <select name="mode3" id="mode3">
+                  <option value="flight">Flight</option>
+                  <option value="train">Train</option>
+                  <option value="bus">Bus</option>
+                </select>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="formButtons">
+          <button type="submit" class="button-27">Submit</button>
+          <button type="reset" class="button-23">Cancel</button>
+        </div>
+      </div>
+    </form>
+    <script>
+      // set date1, date2, date3 to current date in the form
+      var today = new Date().toISOString().split("T")[0];
+      document.getElementsByName("date1")[0].setAttribute("min", today);
+      document.getElementsByName("date2")[0].setAttribute("min", today);
+      document.getElementsByName("date3")[0].setAttribute("min", today);
+
+      // set value of date1, date2, date3 to current date in the form
+      document.getElementsByName("date1")[0].value = today;
+      document.getElementsByName("date2")[0].value = today;
+      document.getElementsByName("date3")[0].value = today;
+
+      document.getElementById("username").value =
+        localStorage.getItem("username");
+    </script>
+  </body>
+</html>
