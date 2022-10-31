@@ -1,4 +1,2 @@
-place1,place2,place3,date1,date2,date3,cost
-surat,ahmd,delhi,21/12/2018,22/12/2018,23/12/2018,1000
-surat,ahmd,delhi,21/12/2018,22/12/2018,23/12/2018,1000
-ahemdabad,surat,delhi,2022-11-01 00:00:00,2022-11-02 00:00:00,2022-11-05 00:00:00,3500
+id,place1,place2,place3,date1,date2,date3,cost
+1,surat,ahemdabad,delhi,2022-11-01 00:00:00,2022-11-02 00:00:00,2022-11-03 00:00:00,4700

@@ -6,6 +6,13 @@ from dateutil import parser
 
 PORT = 8080
 
+# Booking id
+booking_id = 0
+def generateBookingID():
+    global booking_id
+    booking_id += 1
+    return booking_id
+
 # file variables
 csv_files = []
 csv_file_names = ["train.csv", "flight.csv", "bus.csv"]
@@ -94,7 +101,7 @@ def ItineraryResponseHTMLText(it_list, final_cost):
     html_text = html_text.replace("date3", str(date3))
     html_text = html_text.replace("mode1", mode1.upper())
     html_text = html_text.replace("mode2", mode2.upper())
-    html_text = html_text.replace("mode3", mode3.upper())
+    html_text = html_text.replace("mode3", "--")
     html_text = html_text.replace("days1", str(days1))
     html_text = html_text.replace("days2", str(days2))
     html_text = html_text.replace("days3", str(days3))
@@ -233,13 +240,16 @@ def confirmBooking(username):
     # create a new file if it does not exist
     if not os.path.exists("./it_data/" + username + ".csv"):
         f = open("./it_data/" + username + ".csv", "w")
-        f.write("p1,p2,p3,date1,date2,date3,cost")
+        f.write("id,place1,place2,place3,date1,date2,date3,cost")
         f.write("\n")
         f.close()
+    generateBookingID()
     # # append it_list to file named as username.txt
     with open("./it_data/" + username + ".csv", "a") as f:
         f.write(
-            it_list[0].name
+            str(booking_id)
+            + ","
+            + it_list[0].name
             + ","
             + it_list[1].name
             + ","
@@ -254,22 +264,6 @@ def confirmBooking(username):
             + str(it_list[0].cost + it_list[1].cost + it_list[2].cost)
             + "\n"
         )
-        # for i in range(it_list.__len__()):
-        #     f.write(
-        #         it_list[i].name
-        #         + ","
-        #         + str(it_list[i].date)
-        #         + ","
-        #         + it_list[i].mode
-        #         + ","
-        #         + it_list[i].days
-        #         + ","
-        #         + str(it_list[i].status)
-        #         + ","
-        #         + str(it_list[i].cost)
-        #         + "\n"
-        #     )
-
 
 class reqHandler(BaseHTTPRequestHandler):
     def do_GET(self):
