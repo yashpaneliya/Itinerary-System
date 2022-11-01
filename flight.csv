@@ -1,12 +1,12 @@
 p1,p2,tkt,cost
-surat,ahemdabad,37,1000
+surat,ahemdabad,36,1000
 surat,delhi,8,2500
 surat,bengaluru,13,4500
 surat,mumbai,10,2700
 ahemdabad,surat,12,1000
 ahemdabad,bengaluru,14,4900
 ahemdabad,mumbai,16,3700
-ahemdabad,delhi,458,3700
+ahemdabad,delhi,457,3700
 bengaluru,delhi,17,2000
 bengaluru,surat,20,4500
 bengaluru,ahemdabad,14,5000
