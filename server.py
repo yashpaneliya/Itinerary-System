@@ -346,6 +346,10 @@ class reqHandler(BaseHTTPRequestHandler):
         elif self.path == "/flight":
             df = pd.read_csv("flight.csv")
             self.wfile.write(bytes(df.to_html(), "utf8"))
+        # GET transactions data
+        elif self.path == "/transactions":
+            df = pd.read_csv("payments/transactions.csv")
+            self.wfile.write(bytes(df.to_html(), "utf8"))
         elif self.path == "/images/japanback.jpg":
             self.send_header("Content-type", "image/jpeg")
             self.send_header("Access-Control-Allow-Origin", "*")
