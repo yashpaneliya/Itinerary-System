@@ -1,3 +1,4 @@
+import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
 import os
@@ -244,6 +245,17 @@ def confirmBooking(username):
         f.write("\n")
         f.close()
     generateBookingID()
+    f = open("./payments/transactions.csv", "a")
+    f.write(
+        username
+        + ","
+        + str(booking_id)
+        + ","
+        + str(it_list[0].cost + it_list[1].cost + it_list[2].cost)
+        + ","
+        + str(datetime.datetime.now())
+        + "\n"
+    )
     # # append it_list to file named as username.txt
     with open("./it_data/" + username + ".csv", "a") as f:
         f.write(
@@ -338,14 +350,14 @@ class reqHandler(BaseHTTPRequestHandler):
                     <html lang="en">
                     <head>
                     <meta charset="UTF-8">
-                    <title>Authentication Failed!!</title>
+                    <title>Travel Auth</title>
                     <script>
                         localStorage.removeItem("username");
+                        alert("Username Not found! Please try again!");
+                        window.location.href = "http://localhost:8080/";
                     </script>
                     </head>
                     <body>
-                    <h1>Authentication Failed</h1>
-                    <a href="http://localhost:8080/">Try again</a>
                     </body>
                     </html>
                 """
@@ -393,14 +405,14 @@ class reqHandler(BaseHTTPRequestHandler):
                     <html lang="en">
                     <head>
                     <meta charset="UTF-8">
-                    <title>Username already exists!!</title>
+                    <title>Travel Auth</title>
                     <script>
                         localStorage.removeItem("username");
+                        alert("Username already exists!");
+                        window.location.href = "http://localhost:8080/register";
                     </script>
                     </head>
                     <body>
-                    <h1>Username already exists</h1>
-                    <a href="http://localhost:8080/register">Try again</a>
                     </body>
                     </html>
                 """
