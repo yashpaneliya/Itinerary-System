@@ -16,6 +16,24 @@ from dateutil import parser
 # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# NOTE
+# IF YOU DO NOT HAVE ROOT ACCESS THEN PANDAS LIBRARY WON'T WORK WITHOUT INSTALLING IT
+# AS A SOLUTION YOU CAN USE THE ANACONDA DISTRIBUTION OF PYTHON
+# IT COMES WITH PANDAS LIBRARY PREINSTALLED
+# https://www.anaconda.com/products/individual
+# CONFIGURE ANACONDS NAVIGATOR
+# LAUNCH JUPYTER NOTEBOOK
+# OPEN THE server.ipynb AND RUN THE CODE
+
+# DATASHEETS
+# train.csv : STORE TRAIN TICKET DATA 
+# flight.csv : STORE FLIGHT TICKET DATA
+# bus.csv : STORE BUS TICKET DATA
+# transaction.csv : STORE BOOKING TRANSACTION DATA
+# <USERNAME>.csv : STORE BOOKING HISTORY DATA
+# auth.csv : STORE USER AUTHENTICATION DATA
+
+
 # Server is hosted on 8080 port
 PORT = 8080
 
