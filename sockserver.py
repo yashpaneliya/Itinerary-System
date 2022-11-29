@@ -47,9 +47,9 @@ it_list = []
 
 # convert train.xlsx, bus.xlsx, flight.xlsx to csv
 def convertXLSXToCSV():
-    csv_files.append(pd.read_csv("train.csv"))
-    csv_files.append(pd.read_csv("flight.csv"))
-    csv_files.append(pd.read_csv("bus.csv"))
+    csv_files.append(pd.read_csv("./database/train.csv"))
+    csv_files.append(pd.read_csv("./database/flight.csv"))
+    csv_files.append(pd.read_csv("./database/bus.csv"))
 
 
 # create a class PlaceData with members name,date,mode,days,status,cost
@@ -124,7 +124,7 @@ def ItineraryResponseHTMLText(it_list, final_cost):
     # final travel cost
     final_cost = final_cost
     # read iternary.html file and store it to html_text
-    with open("./itenary.html", "r") as f:
+    with open("./pages/itenary.html", "r") as f:
         html_text = f.read()
     # replace the placeholders in html_text with the values
     html_text = html_text.replace("p1", p1.upper())
@@ -341,29 +341,29 @@ class GETRequest:
         # GET request for itinerary
         if self.filename == "/itinerary":
             # read content of index.html
-            with open("index.html", "r") as f:
+            with open("./pages/index.html", "r") as f:
                 clientConnection.send(bytes(f.read(), "UTF8"))
         # GET login page
         elif self.filename == "/":
             # read content of auth.html
-            with open("auth.html", "r") as f:
+            with open("./pages/auth.html", "r") as f:
                 clientConnection.send(bytes(f.read(), "UTF8"))
         # GET register page
         elif self.filename == "/register":
             # read content of register.html
-            with open("register.html", "r") as f:
+            with open("./pages/register.html", "r") as f:
                 clientConnection.send(bytes(f.read(), "UTF8"))
         # GET bus tickets data
         elif self.filename == "/bus":
-            df = pd.read_csv("bus.csv")
+            df = pd.read_csv("./database/bus.csv")
             clientConnection.send(bytes(df.to_html(), "UTF8"))
         # GET train tickets data
         elif self.filename == "/train":
-            df = pd.read_csv("train.csv")
+            df = pd.read_csv("./database/train.csv")
             clientConnection.send(bytes(df.to_html(), "UTF8"))
         # GET flight tickets data
         elif self.filename == "/flight":
-            df = pd.read_csv("flight.csv")
+            df = pd.read_csv("./database/flight.csv")
             clientConnection.send(bytes(df.to_html(), "UTF8"))
         # GET transactions data
         elif self.filename == "/transactions":
@@ -437,7 +437,7 @@ class POSTRequest:
                     str.encode("Content-Type: text/html\n", "iso-8859-1")
                 )
                 clientConnection.send(str.encode("\r\n"))
-                with open("index.html", "r") as f:
+                with open("./pages/index.html", "r") as f:
                     clientConnection.send(bytes(f.read(), "UTF8"))
         # Handle register request
         # Append the username and password to auth.csv
@@ -540,7 +540,7 @@ class POSTRequest:
             df = df[df["uname"] == username]
             name = df["name"].values[0]
             # read content of profile.html
-            with open("profile.html", "r") as f:
+            with open("./pages/profile.html", "r") as f:
                 res = f.read()
             itenaries = ""
             # read content of username.csv

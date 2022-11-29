@@ -55,9 +55,9 @@ it_list = []
 
 # convert train.xlsx, bus.xlsx, flight.xlsx to csv
 def convertXLSXToCSV():
-    csv_files.append(pd.read_csv("train.csv"))
-    csv_files.append(pd.read_csv("flight.csv"))
-    csv_files.append(pd.read_csv("bus.csv"))
+    csv_files.append(pd.read_csv("./database/train.csv"))
+    csv_files.append(pd.read_csv("./database/flight.csv"))
+    csv_files.append(pd.read_csv("./database/bus.csv"))
 
 # create a class PlaceData with members name,date,mode,days,status,cost
 # Each place of itenary is stored as this object
@@ -130,7 +130,7 @@ def ItineraryResponseHTMLText(it_list, final_cost):
     # final travel cost
     final_cost = final_cost
     # read iternary.html file and store it to html_text
-    with open("./itenary.html", "r") as f:
+    with open("./pages/itenary.html", "r") as f:
         html_text = f.read()
     # replace the placeholders in html_text with the values
     html_text = html_text.replace("p1", p1.upper())
@@ -340,29 +340,29 @@ class reqHandler(BaseHTTPRequestHandler):
         # GET itinerary form page
         if self.path == "/itinerary":
             # read content of index.html
-            with open("index.html", "r") as f:
+            with open("./pages/index.html", "r") as f:
                 self.wfile.write(bytes(f.read(), "utf8"))
         # GET login page
         elif self.path == "/":
             # read content of auth.html
-            with open("auth.html", "r") as f:
+            with open("./pages/auth.html", "r") as f:
                 self.wfile.write(bytes(f.read(), "utf8"))
         # GET register page
         elif self.path == "/register":
             # read content of register.html
-            with open("register.html", "r") as f:
+            with open("./pages/register.html", "r") as f:
                 self.wfile.write(bytes(f.read(), "utf8"))
         # GET bus tickets data
         elif self.path == "/bus":
-            df = pd.read_csv("bus.csv")
+            df = pd.read_csv("./database/bus.csv")
             self.wfile.write(bytes(df.to_html(), "utf8"))
         # GET train tickets data
         elif self.path == "/train":
-            df = pd.read_csv("train.csv")
+            df = pd.read_csv("./database/train.csv")
             self.wfile.write(bytes(df.to_html(), "utf8"))
         # GET flight tickets data
         elif self.path == "/flight":
-            df = pd.read_csv("flight.csv")
+            df = pd.read_csv("./database/flight.csv")
             self.wfile.write(bytes(df.to_html(), "utf8"))
         # GET transactions data
         elif self.path == "/transactions":
@@ -559,7 +559,7 @@ class reqHandler(BaseHTTPRequestHandler):
             df = df[df["uname"] == username]
             name = df["name"].values[0]
             # read content of profile.html
-            with open("profile.html", "r") as f:
+            with open("./pages/profile.html", "r") as f:
                 res = f.read()
             itenaries = ""
             # read content of username.csv
